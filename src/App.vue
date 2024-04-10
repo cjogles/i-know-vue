@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+const route = useRoute();
 </script>
 
 <template>
   <header>
-    <img v-if="false" alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld v-if="false" msg="Let's explore Vue.js!" />
+      <HelloWorld v-if="route.path === '/'" msg="Let's explore Vue.js!" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
