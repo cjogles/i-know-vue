@@ -6,7 +6,7 @@ const route = useRoute();
 </script>
 
 <template>
-  <header>
+  <header v-if="route.path === '/' || route.path === '/projects'">
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
@@ -14,7 +14,7 @@ const route = useRoute();
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/more-projects">More Projects</RouterLink>
+        <RouterLink to="/projects">Projects</RouterLink>
       </nav>
     </div>
   </header>
