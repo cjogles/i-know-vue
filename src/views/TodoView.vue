@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useTodoStore } from '@/stores/todo'
 const store = useTodoStore()
-const handleCheckboxChange = (state) => {
-  console.log(state)
+const handleNewTodo = (e) => {
+  console.log(e.value)
 }
 </script>
 
@@ -32,24 +32,58 @@ const handleCheckboxChange = (state) => {
       <h1 class="todo">Todo List</h1>
       <div v-for="todo in store.todos" :key="todo.index">
         <div v-if="Array.isArray(todo.value)" class="isArray isArrayBox">
-          <p class="isArray">Multi-task</p>
-          <div v-for="(item, x) in todo.value" :key="x">
-            <input type="checkbox" :v-model="item.value" /> &nbsp;
+          <div class="flex space-top">
+            <p>Multi-task</p>
+            <button @click="store.removeTodo(todo)">Delete entire multi-task</button>
+          </div>
+          <div v-for="item in todo.value" :key="item.index + 'nested'">
+            <input
+              type="checkbox"
+              :v-model="item.index"
+              :value="item.value"
+              @change="store.removeTodo(item, true)"
+            />
+            &nbsp;
             <label for="checkbox">{{ item.value }}</label>
           </div>
+          <input v-model="store.newNestedTodo" type="text" />
+          <button @click="() => store.addNestedTodo(store.newNestedTodo, todo.index)">
+            Add Todo
+          </button>
         </div>
         <div v-if="!Array.isArray(todo.value)">
-          <input type="checkbox" :v-model="todo.value" @change="store.removeTodo(todo)" /> &nbsp;
+          <input
+            type="checkbox"
+            :v-model="todo.index"
+            :value="todo.value"
+            @change="store.removeTodo(todo)"
+          />
+          &nbsp;
           <label for="checkbox">{{ todo.value }}</label>
         </div>
       </div>
       <br />
-      <button @click="() => store.reset()">Mark All Completed</button>
+      <div class="flex-col">
+        <input v-model="store.newTodo" type="text" />
+        <button @click="() => store.addTodo(store.newTodo)">Add Todo</button>
+        <button @click="() => store.reset()">Mark All Completed</button>
+        <button @click="() => store.addNewMultiTask()">Add New Multi-task</button>
+      </div>
     </section>
   </div>
 </template>
 
 <style scoped>
+.space-top {
+  top-margin: 10px;
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
 .isArray {
   margin-left: 20px;
 }
