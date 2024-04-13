@@ -4,14 +4,17 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div class="about">
-    <h2>Scroll down and look through these projects, <br> and you might just want to</h2>
-      <iframe 
-        src="https://giphy.com/embed/Tr5eaF2MxvieY" 
-        width="300px" 
-        height="300px"
-        frameBorder="0"
-      >
-      </iframe>
+    <h2>
+      Scroll down and look through these projects, <br />
+      and you might just want to
+    </h2>
+    <iframe
+      src="https://giphy.com/embed/Tr5eaF2MxvieY"
+      width="300px"
+      height="300px"
+      frameBorder="0"
+    >
+    </iframe>
   </div>
 
   <section>
@@ -35,7 +38,6 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style>
-
 section {
   margin-top: 40px;
   margin-bottom: 80px;
@@ -47,7 +49,8 @@ table {
   width: 100%;
 }
 
-td, th {
+td,
+th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
@@ -72,11 +75,11 @@ h3 {
 }
 
 .about {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 @media (min-width: 1024px) {
   .about {

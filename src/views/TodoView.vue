@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { useTodoStore } from '@/stores/todo'
+const store = useTodoStore()
+const handleCheckboxChange = (state) => {
+  console.log(state)
+}
 </script>
 
 <template>
   <div class="container-todo">
     <nav>
-      <RouterLink to="/">Home</RouterLink> |
-      <RouterLink to="/projects">Projects</RouterLink>
+      <a href="/">Home</a> |
+      <a href="projects">Projects</a>
     </nav>
     <section>
       <h1 class="todo">To Do List Project</h1>
@@ -23,14 +27,35 @@ import { RouterLink } from 'vue-router'
       </div>
     </section>
   </div>
+  <div class="container-todo">
+    <section class="todo-box">
+      <h1 class="todo">Todo List</h1>
+      <div v-for="todo in store.todos" :key="todo.index">
+        <div v-if="Array.isArray(todo.value)" class="isArray isArrayBox">
+          <p class="isArray">Multi-task</p>
+          <div v-for="(item, x) in todo.value" :key="x">
+            <input type="checkbox" :v-model="item.value" /> &nbsp;
+            <label for="checkbox">{{ item.value }}</label>
+          </div>
+        </div>
+        <div v-if="!Array.isArray(todo.value)">
+          <input type="checkbox" :v-model="todo.value" @change="store.removeTodo(todo)" /> &nbsp;
+          <label for="checkbox">{{ todo.value }}</label>
+        </div>
+      </div>
+      <br />
+      <button @click="() => store.reset()">Mark All Completed</button>
+    </section>
+  </div>
 </template>
 
-<style>
-
-div#app {
-  display: flex;
+<style scoped>
+.isArray {
+  margin-left: 20px;
 }
-
+.isArrayBox {
+  border-left: solid;
+}
 div.container-todo {
   display: flex;
   flex-direction: column;
@@ -42,7 +67,12 @@ h1.todo {
 }
 nav {
   position: absolute;
-  top:0;
+  top: 0;
   margin-top: 20px;
+}
+.todo-box {
+  margin: 30px;
+  padding: 20px;
+  border: solid;
 }
 </style>
